@@ -13,7 +13,7 @@ public class TestScene extends Scene
 
     private int x, y;
     private int mouseX, mouseY;
-    private int RC_RESOLUTION = 100;
+    private final int RC_RESOLUTION = 10000;
     private int rotation;
 
     private LinkedList<Line2D.Float> lines;
@@ -105,7 +105,7 @@ public class TestScene extends Scene
             if (lRotation > resolution)
                 lRotation = lRotation - (resolution * (rotation / resolution));
 
-            if (i > lRotation + (resolution / 10) || i < lRotation && !(lRotation > resolution - resolution / 10 && i > 0 && i < (lRotation + (resolution / 10)) - resolution))
+            if (i > lRotation + resolution / 10 || i < lRotation && !(lRotation > resolution - resolution / 10 && i < lRotation + resolution / 10 - resolution))
                 continue;
 
             double dir = (Math.PI * 2) * ((double) i / resolution);
