@@ -1,4 +1,4 @@
-package com.l0raxeo.rayTracingGame.input.keyboard;
+package com.l0raxeo.rayCast.input.keyboard;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

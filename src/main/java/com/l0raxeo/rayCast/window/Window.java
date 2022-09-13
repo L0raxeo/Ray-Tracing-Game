@@ -1,9 +1,9 @@
-package com.l0raxeo.rayTracingGame.window;
+package com.l0raxeo.rayCast.window;
 
-import com.l0raxeo.rayTracingGame.input.keyboard.KeyManager;
-import com.l0raxeo.rayTracingGame.input.mouse.MouseManager;
-import com.l0raxeo.rayTracingGame.scenes.Scene;
-import com.l0raxeo.rayTracingGame.scenes.TestScene;
+import com.l0raxeo.rayCast.input.keyboard.KeyManager;
+import com.l0raxeo.rayCast.input.mouse.MouseManager;
+import com.l0raxeo.rayCast.scenes.Scene;
+import com.l0raxeo.rayCast.scenes.TestScene;
 
 import javax.swing.*;
 import java.awt.*;
@@ -45,7 +45,7 @@ public class Window implements Runnable
      * attempt to change scenes without having to create
      * the scene within the parameters of this method.
      */
-    public static void changeScene(Class<?> sceneClass)
+    public static void changeScene(Class<? extends Scene> sceneClass)
     {
         if (sceneClass.isInstance(Scene.class))
         {
@@ -87,6 +87,7 @@ public class Window implements Runnable
             currentScene = targetScene;
             currentScene.loadResources();
             currentScene.init();
+            currentScene.start();
         }
     }
 

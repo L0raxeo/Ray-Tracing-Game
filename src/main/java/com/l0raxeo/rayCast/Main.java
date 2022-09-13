@@ -1,6 +1,6 @@
-package com.l0raxeo.rayTracingGame;
+package com.l0raxeo.rayCast;
 
-import com.l0raxeo.rayTracingGame.window.Window;
+import com.l0raxeo.rayCast.window.Window;
 
 public class Main
 {

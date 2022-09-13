@@ -1,4 +1,4 @@
-package com.l0raxeo.rayTracingGame.input.mouse;
+package com.l0raxeo.rayCast.input.mouse;
 
 public class MBtn
 {

@@ -1,6 +1,4 @@
-package com.l0raxeo.rayTracingGame.input.mouse;
-
-import org.joml.Vector2i;
+package com.l0raxeo.rayCast.input.mouse;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;

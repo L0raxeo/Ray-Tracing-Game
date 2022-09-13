@@ -1,4 +1,4 @@
-package com.l0raxeo.rayTracingGame.input.keyboard;
+package com.l0raxeo.rayCast.input.keyboard;
 
 public enum KeyState
 {
