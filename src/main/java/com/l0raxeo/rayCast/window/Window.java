@@ -34,8 +34,8 @@ public class Window implements Runnable
     private Window()
     {
         this.title = "Re:Bound";
-        this.width = 800;
-        this.height = 600;
+        this.width = 1080;
+        this.height = 720;
         this.size = new Dimension(width, height);
     }
 

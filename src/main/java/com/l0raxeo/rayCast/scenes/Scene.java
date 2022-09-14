@@ -1,13 +1,16 @@
 package com.l0raxeo.rayCast.scenes;
 
 import com.l0raxeo.rayCast.components.Component;
+import com.l0raxeo.rayCast.dataStructure.Transform;
 import com.l0raxeo.rayCast.gameObjects.GameObject;
 import com.l0raxeo.rayCast.window.Window;
+import org.joml.Vector2f;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Vector;
 
 public abstract class Scene
 {
@@ -47,6 +50,28 @@ public abstract class Scene
                 .filter(gameObject -> gameObject.getName().equals(name))
                 .findFirst();
         return result.orElse(null);
+    }
+
+    /**
+     *
+     * @param position in screen coordinates
+     * @return Game Object with coordinates
+     */
+    public GameObject getGameObject(Vector2f position)
+    {
+        for (GameObject go : getGameObjects())
+        {
+            Transform t = go.transform;
+            float x = t.getScreenPosition().x;
+            float y = t.getScreenPosition().y;
+            float width = t.scale.x;
+            float height = t.scale.y;
+
+            if (position.x >= x && position.x <= x + width && position.y >= y && position.y <= y + height)
+                return go;
+        }
+
+        return null;
     }
 
     public java.util.List<GameObject> getGameObjects()

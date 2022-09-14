@@ -19,38 +19,43 @@ public class WorldLines extends Component
         lines = buildLines();
     }
 
-    @Override
-    public void render(Graphics g)
-    {
-        g.setColor(Color.RED);
-
-        for (Line2D.Float line : lines)
-            g.drawLine((int) line.x1, (int) line.y1, (int) line.x2, (int) line.y2);
-    }
-
     private LinkedList<Line2D.Float> buildLines()
     {
         LinkedList<Line2D.Float> lines = new LinkedList<>();
 
         Random r = new Random();
 
-        int wMultiplier = r.nextInt(50) + 1;
-        int hMultiplier = r.nextInt(50) + 1;
-        int x = r.nextInt((Window.getWidth() - (16 * wMultiplier)) + 1 - 16) + 16;
-        int y = r.nextInt((Window.getHeight() - (16 * hMultiplier)) + 1 - 16) + 16;
+        int x = 200;
+        int y = 200;
+        int width = 128, height = 16;
 
-        lines.add(new Line2D.Float(x, y, x + (16 * wMultiplier), y));
-        lines.add(new Line2D.Float(x + (16 * wMultiplier), y, x + (16 * wMultiplier), y + (16 * hMultiplier)));
-        lines.add(new Line2D.Float(x + (16 * wMultiplier), y + (16 * hMultiplier), x, y + (16 * hMultiplier)));
-        lines.add(new Line2D.Float(x, y + (16 * hMultiplier), x, y));
+        lines.add(new Line2D.Float(x, y, x + width, y));
+        lines.add(new Line2D.Float(x + width, y, x + width, x + height));
+        lines.add(new Line2D.Float(x + width, x + height, x, y + height));
+        lines.add(new Line2D.Float(x, y + height, x, y));
 
         Window.getScene().addGameObjectToScene(Prefabs.generate(
                 "Wall",
                 new Vector2f(x, Window.getHeight() - y),
-                new Vector2f(16 * wMultiplier, 16 * hMultiplier),
+                new Vector2f(width, height),
                 new Rigidbody(1),
                 new BoxBounds(),
-                new RectRenderer(Color.CYAN, true)
+                new RectRenderer(Color.WHITE, true)
+        ));
+
+        lines.add(new Line2D.Float(400, 400, 464, 400));
+        lines.add(new Line2D.Float(464, 400, 464, 464));
+        lines.add(new Line2D.Float(464, 464, 400, 464));
+        lines.add(new Line2D.Float(400, 464, 400, 400));
+
+        Window.getScene().addGameObjectToScene(Prefabs.generate(
+                "Item",
+                new Vector2f(400, Window.getHeight() - 400),
+                new Vector2f(64, 64),
+                new Rigidbody(1),
+                new BoxBounds(),
+                new TextureRenderer(),
+                new RayCastReceiver()
         ));
 
         return lines;

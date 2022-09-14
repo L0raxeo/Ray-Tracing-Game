@@ -1,11 +1,14 @@
 package com.l0raxeo.rayCast.components;
 
+import com.l0raxeo.rayCast.gameObjects.GameObject;
 import com.l0raxeo.rayCast.input.keyboard.KeyManager;
 import com.l0raxeo.rayCast.input.mouse.MouseManager;
 import com.l0raxeo.rayCast.window.Window;
+import org.joml.Vector2f;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.awt.geom.Line2D;
 import java.util.LinkedList;
 
@@ -102,6 +105,10 @@ public class PlayerRayCast extends Component
             // Collision detected
             float x = p0_x + (t * s1_x);
             float y = p0_y + (t * s1_y);
+
+            GameObject goReceiver = Window.getScene().getGameObject(new Vector2f(p2_x, p2_y));
+            if (goReceiver != null && goReceiver.hasComponent(RayCastReceiver.class))
+                goReceiver.getComponent(RayCastReceiver.class).onReceive();
 
             return dist(p0_x, p0_y, x, y);
         }
