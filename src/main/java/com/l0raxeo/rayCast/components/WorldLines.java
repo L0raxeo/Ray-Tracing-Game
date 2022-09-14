@@ -1,8 +1,13 @@
 package com.l0raxeo.rayCast.components;
 
+import com.l0raxeo.rayCast.prefabs.Prefabs;
+import com.l0raxeo.rayCast.window.Window;
+import org.joml.Vector2f;
+
 import java.awt.*;
 import java.awt.geom.Line2D;
 import java.util.LinkedList;
+import java.util.Random;
 
 public class WorldLines extends Component
 {
@@ -12,7 +17,6 @@ public class WorldLines extends Component
     public WorldLines()
     {
         lines = buildLines();
-        System.out.println(lines);
     }
 
     @Override
@@ -28,15 +32,26 @@ public class WorldLines extends Component
     {
         LinkedList<Line2D.Float> lines = new LinkedList<>();
 
-        lines.add(new Line2D.Float(100 + 50, 100 + 50, 100 + 100, 100 + 50));
-        lines.add(new Line2D.Float(100 + 100, 100 + 50, 100 + 100, 100 + 100));
-        lines.add(new Line2D.Float(100 + 100, 100 + 100, 100 + 50, 100 + 100));
-        lines.add(new Line2D.Float(100 + 50, 100 + 100, 100 + 50, 100 + 50));
+        Random r = new Random();
 
-        lines.add(new Line2D.Float(300 + 50, 300 + 50, 300 + 100, 300 + 50));
-        lines.add(new Line2D.Float(300 + 100, 300 + 50, 300 + 100, 300 + 100));
-        lines.add(new Line2D.Float(300 + 100, 300 + 100, 300 + 50, 300 + 100));
-        lines.add(new Line2D.Float(300 + 50, 300 + 100, 300 + 50, 300 + 50));
+        int wMultiplier = r.nextInt(50) + 1;
+        int hMultiplier = r.nextInt(50) + 1;
+        int x = r.nextInt((Window.getWidth() - (16 * wMultiplier)) + 1 - 16) + 16;
+        int y = r.nextInt((Window.getHeight() - (16 * hMultiplier)) + 1 - 16) + 16;
+
+        lines.add(new Line2D.Float(x, y, x + (16 * wMultiplier), y));
+        lines.add(new Line2D.Float(x + (16 * wMultiplier), y, x + (16 * wMultiplier), y + (16 * hMultiplier)));
+        lines.add(new Line2D.Float(x + (16 * wMultiplier), y + (16 * hMultiplier), x, y + (16 * hMultiplier)));
+        lines.add(new Line2D.Float(x, y + (16 * hMultiplier), x, y));
+
+        Window.getScene().addGameObjectToScene(Prefabs.generate(
+                "Wall",
+                new Vector2f(x, Window.getHeight() - y),
+                new Vector2f(16 * wMultiplier, 16 * hMultiplier),
+                new Rigidbody(1),
+                new BoxBounds(),
+                new RectRenderer(Color.CYAN, true)
+        ));
 
         return lines;
     }

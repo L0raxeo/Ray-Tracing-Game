@@ -13,15 +13,17 @@ public class PlayerRayCast extends Component
 {
 
     private LinkedList<Line2D.Float> lines;
+    private Rigidbody rigidbody;
 
-    private final int RC_RESOLUTION = 250;
-    private final int RC_MAX_DIST = 500;
+    private final int rcResolution = 150;
+    private final int rcMaxDist = 400;
     private int rotation;
 
     @Override
     public void start()
     {
-        lines = Window.getScene().getGameObject("WorldLines").getComponent(WorldLines.class).lines;
+        this.lines = Window.getScene().getGameObject("WorldLines").getComponent(WorldLines.class).lines;
+        this.rigidbody = gameObject.getComponent(Rigidbody.class);
     }
 
     @Override
@@ -32,7 +34,7 @@ public class PlayerRayCast extends Component
         int mouseX = MouseManager.getMouseX();
         int mouseY = MouseManager.getMouseY();
 
-        rotation = (int) (((getRotation(getX(), getY(), mouseX, mouseY) / 360) * RC_RESOLUTION) + (RC_RESOLUTION * 0.95));
+        rotation = (int) (((getRotation(getRayX(), getRayY(), mouseX, mouseY) / 360) * rcResolution) + (rcResolution * 0.93));
     }
 
     @Override
@@ -40,20 +42,29 @@ public class PlayerRayCast extends Component
     {
         g.setColor(Color.WHITE);
 
-        for (Line2D.Float ray : calcRays(lines, getX(), getY(), RC_RESOLUTION, RC_MAX_DIST))
+        for (Line2D.Float ray : calcRays(lines, getRayX(), getRayY(), rcResolution, rcMaxDist))
             g.drawLine((int) ray.x1, (int) ray.y1, (int) ray.x2, (int) ray.y2);
     }
 
     private void getInput()
     {
         if (KeyManager.isHeld('w'))
-            gameObject.transform.getScreenPosition().y -= 5;
+            rigidbody.moveY(-5);
         if (KeyManager.isHeld('a'))
-            gameObject.transform.getScreenPosition().x -= 5;
+            rigidbody.moveX(-5);
         if (KeyManager.isHeld('s'))
-            gameObject.transform.getScreenPosition().y += 5;
+            rigidbody.moveY(5);
         if (KeyManager.isHeld('d'))
-            gameObject.transform.getScreenPosition().x += 5;
+            rigidbody.moveX(5);
+
+        if (KeyManager.onRelease('w'))
+            rigidbody.moveY(0);
+        if (KeyManager.onRelease('a'))
+            rigidbody.moveX(0);
+        if (KeyManager.onRelease('s'))
+            rigidbody.moveY(0);
+        if (KeyManager.onRelease('d'))
+            rigidbody.moveX(0);
 
         if (KeyManager.isHeld(KeyEvent.VK_LEFT))
             rotation -= 75;
@@ -106,12 +117,12 @@ public class PlayerRayCast extends Component
             int lRotation = rotation;
 
             if (rotation < 0)
-                rotation = RC_RESOLUTION;
+                rotation = rcResolution;
 
             if (lRotation > resolution)
                 lRotation = lRotation - (resolution * (rotation / resolution));
 
-            if (i > lRotation + resolution / 10 || i < lRotation && !(lRotation > resolution - resolution / 10 && i < lRotation + resolution / 10 - resolution))
+            if (i > lRotation + resolution / 7 || i < lRotation && !(lRotation > resolution - resolution / 7 && i < lRotation + resolution / 7 - resolution))
                 continue;
 
             double dir = (Math.PI * 2) * ((double) i / resolution);
@@ -133,14 +144,14 @@ public class PlayerRayCast extends Component
         return rays;
     }
 
-    private int getX()
+    private int getRayX()
     {
-        return (int) gameObject.transform.getScreenPosition().x;
+        return (int) (gameObject.transform.getScreenPosition().x + (gameObject.transform.scale.x / 2));
     }
 
-    private int getY()
+    private int getRayY()
     {
-        return (int) gameObject.transform.getScreenPosition().y;
+        return (int) (gameObject.transform.getScreenPosition().y + (gameObject.transform.scale.y / 2));
     }
 
 }

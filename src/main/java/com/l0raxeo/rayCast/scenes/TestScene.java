@@ -1,9 +1,8 @@
 package com.l0raxeo.rayCast.scenes;
 
-import com.l0raxeo.rayCast.components.PlayerRayCast;
-import com.l0raxeo.rayCast.components.WorldLines;
-import com.l0raxeo.rayCast.gameObjects.GameObject;
+import com.l0raxeo.rayCast.components.*;
 import com.l0raxeo.rayCast.components.Component;
+import com.l0raxeo.rayCast.gameObjects.GameObject;
 import com.l0raxeo.rayCast.prefabs.Prefabs;
 import org.joml.Vector2f;
 
@@ -29,7 +28,10 @@ public class TestScene extends Scene
                 "Player",
                 new Vector2f(400, 300),
                 new Vector2f(32, 32),
-                new PlayerRayCast()
+                new Rigidbody(1),
+                new BoxBounds(),
+                new PlayerRayCast(),
+                new RectRenderer(Color.RED, true)
         ));
     }
 
