@@ -43,15 +43,15 @@ public class WorldLines extends Component
                 new RectRenderer(Color.WHITE, true)
         ));
 
-        lines.add(new Line2D.Float(400, 400, 464, 400));
-        lines.add(new Line2D.Float(464, 400, 464, 464));
-        lines.add(new Line2D.Float(464, 464, 400, 464));
-        lines.add(new Line2D.Float(400, 464, 400, 400));
+        lines.add(new Line2D.Float(400, 400, 416, 400));
+        lines.add(new Line2D.Float(416, 400, 416, 416));
+        lines.add(new Line2D.Float(416, 416, 400, 416));
+        lines.add(new Line2D.Float(400, 416, 400, 400));
 
         Window.getScene().addGameObjectToScene(Prefabs.generate(
                 "Item",
                 new Vector2f(400, Window.getHeight() - 400),
-                new Vector2f(64, 64),
+                new Vector2f(16, 16),
                 new Rigidbody(1),
                 new BoxBounds(),
                 new TextureRenderer(),

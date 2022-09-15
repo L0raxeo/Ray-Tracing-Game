@@ -28,7 +28,7 @@ public class TextureRenderer extends Component
         if (rayCastReceiver.isCastUpon())
         {
             g.setColor(Color.CYAN);
-            g.fillRect((int) t.getScreenPosition().x, (int) t.getScreenPosition().y, (int) t.scale.x, (int) t.scale.y);
+            g.drawRect((int) t.getScreenPosition().x, (int) t.getScreenPosition().y, (int) t.scale.x, (int) t.scale.y);
         }
     }
 

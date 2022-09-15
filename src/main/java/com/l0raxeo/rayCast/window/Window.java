@@ -33,7 +33,7 @@ public class Window implements Runnable
 
     private Window()
     {
-        this.title = "Re:Bound";
+        this.title = "Ray Casting Game";
         this.width = 1080;
         this.height = 720;
         this.size = new Dimension(width, height);
@@ -140,35 +140,30 @@ public class Window implements Runnable
 
     private void loop()
     {
-        long lastTime = System.nanoTime();
-        double timePerTick = 1000000000D / 60D;
-        int ticks = 0;
-        int frames = 0;
-        long lastTimer = System.currentTimeMillis();
+        int fps = 60;
+        double timePerTick = 1000000000f / fps;
         double delta = 0;
+        long now;
+        long lastTime = System.nanoTime();
+        long timer = 0;
 
         while (running)
         {
-            long now = System.nanoTime();
+            now = System.nanoTime();
             delta += (now - lastTime) / timePerTick;
+            timer += now - lastTime;
             lastTime = now;
 
-            while (delta >= 1)
+            if (delta >= 1)
             {
-                ticks++;
                 update(delta);
-                delta -= 1;
+                render();
+                delta--;
             }
 
-            frames++;
-            render();
-
-            if (System.currentTimeMillis() - lastTimer >= 1000)
+            if (timer >= 1000000000)
             {
-                lastTimer += 1000;
-                getFrame().setTitle(title + " | TPS: " + ticks + " FPS: " + frames);
-                frames = 0;
-                ticks = 0;
+                timer = 0;
             }
         }
     }
