@@ -3,13 +3,14 @@ package com.l0raxeo.rayCast.scenes;
 import com.l0raxeo.rayCast.components.*;
 import com.l0raxeo.rayCast.components.Component;
 import com.l0raxeo.rayCast.gameObjects.GameObject;
+import com.l0raxeo.rayCast.maze.util.MapGenerator;
 import com.l0raxeo.rayCast.prefabs.Prefabs;
 import org.joml.Vector2f;
 
 import java.awt.*;
 import java.util.ConcurrentModificationException;
 
-public class TestScene extends Scene
+public class GameScene extends Scene
 {
 
     @Override
@@ -21,7 +22,7 @@ public class TestScene extends Scene
                 "WorldLines",
                 new Vector2f(),
                 new Vector2f(),
-                new WorldLines()
+                new MapTranslator()
         ));
 
         addGameObjectToScene(Prefabs.generate(
@@ -33,6 +34,8 @@ public class TestScene extends Scene
                 new PlayerRayCast(),
                 new RectRenderer(Color.RED, true)
         ));
+
+        System.out.println(MapGenerator.generate(10, 10));
     }
 
     @Override

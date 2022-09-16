@@ -3,7 +3,7 @@ package com.l0raxeo.rayCast.window;
 import com.l0raxeo.rayCast.input.keyboard.KeyManager;
 import com.l0raxeo.rayCast.input.mouse.MouseManager;
 import com.l0raxeo.rayCast.scenes.Scene;
-import com.l0raxeo.rayCast.scenes.TestScene;
+import com.l0raxeo.rayCast.scenes.GameScene;
 
 import javax.swing.*;
 import java.awt.*;
@@ -135,7 +135,7 @@ public class Window implements Runnable
 
         setVisible(true);
 
-        changeScene(TestScene.class);
+        changeScene(GameScene.class);
     }
 
     private void loop()
@@ -242,7 +242,7 @@ public class Window implements Runnable
     {
         running = true;
 
-        thread = new Thread(this, "Tankit" + "_main");
+        thread = new Thread(this, "Ray-Tracer" + "_main");
         thread.start();
     }
 

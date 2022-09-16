@@ -9,12 +9,12 @@ import java.awt.geom.Line2D;
 import java.util.LinkedList;
 import java.util.Random;
 
-public class WorldLines extends Component
+public class MapTranslator extends Component
 {
 
     public LinkedList<Line2D.Float> lines;
 
-    public WorldLines()
+    public MapTranslator()
     {
         lines = buildLines();
     }

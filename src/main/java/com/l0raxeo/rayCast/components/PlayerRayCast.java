@@ -8,7 +8,6 @@ import org.joml.Vector2f;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
 import java.awt.geom.Line2D;
 import java.util.LinkedList;
 
@@ -25,7 +24,7 @@ public class PlayerRayCast extends Component
     @Override
     public void start()
     {
-        this.lines = Window.getScene().getGameObject("WorldLines").getComponent(WorldLines.class).lines;
+        this.lines = Window.getScene().getGameObject("WorldLines").getComponent(MapTranslator.class).lines;
         this.rigidbody = gameObject.getComponent(Rigidbody.class);
     }
 
